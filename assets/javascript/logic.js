@@ -32,13 +32,24 @@ const questionsScreen = document.getElementById('questions')
 startButton.addEventListener("click", function() {
     startScreen.style.display = "none";
     questionsScreen.style.display = "block";
+    // Need to add code to start timer
 })
 
-// For loop to display question values
+// Render question - and move on to next question object each time the user clicks 'next' or time passes. 
 let questionTitle = document.getElementById('question-title')
-let choices = document.getElementById('choices')
+let choicesArea = document.getElementById('choices')
 
-// for (let i = 0; i < 5; i++) {
-questionTitle.textContent = (questions[i].title)
+questionTitle.textContent = (questions[0].title)
+// questions.choices.forEach(function() {
+//     document.choicesArea.createElement('button')
+//     button.textContent = (choices[i])
+// })
 
-// }
+// CODE BELOW NOT YET WORKING
+for (let i = 0; i < choices.length; i++) {
+    let button = document.choicesArea.createElement('button');
+    button.textContent = (choices[i]);
+    document.body.appendChild(button);
+}
+
+// Create 4 buttons using a 'for each' loop. And then set them class attributes etc. 
