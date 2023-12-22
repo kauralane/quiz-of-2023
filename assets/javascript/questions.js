@@ -1,37 +1,29 @@
 // Questions 
-    // need to figure out how to indicate the answer (boolean?)
-const questionOne = {
-    question: 'What blah blah blah', // string
-    option1: 'answer one', // string
-    option2: 'answer two', // string
-    answer: option1
-}
 
-const questionTwo = {
-    question: 'What blah blah blah', // string
-    option1: 'answer one', // string
-    option2: 'answer two', // string
-    answer: option2
+const questions = [
+{
+    title: 'Which country did the England Lionesses sadly lose to in the World Cup Final?', 
+    choices: ['Spain', 'Colombia', 'Peru', 'Sweden'],
+    answer: 'Spain'
+},
+{
+    title: 'What blah blah blah', 
+    choices: ['answer one', 'answer two', 'answer 3', 'answer 4'],
+    answer: 'X'
+},
+{
+    title: 'What blah blah blah', 
+    choices: ['answer one', 'answer two', 'answer 3', 'answer 4'],
+    answer: 'X'
+},
+{
+    title: 'What blah blah blah', 
+    choices: ['answer one', 'answer two', 'answer 3', 'answer 4'],
+    answer: 'X'
+},
+{
+    title: 'What blah blah blah', 
+    choices: ['answer one', 'answer two', 'answer 3', 'answer 4'],
+    answer: 'X'
 }
-
-const questionThree = {
-    question: 'What blah blah blah', // string
-    option1: 'answer one', // string
-    option2: 'answer two', // string
-    answer: option1
-}
-
-const questionFour = {
-    question: 'What blah blah blah', // string
-    option1: 'answer one', // string
-    option2: 'answer two', // string
-    answer: option2
-}
-
-const questionFive = {
-    question: 'What blah blah blah', // string
-    option1: 'answer one', // string
-    option2: 'answer two', // string
-    answer: option2
-}
-
+]
