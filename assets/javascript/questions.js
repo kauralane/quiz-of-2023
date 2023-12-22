@@ -1,5 +1,5 @@
 // Questions 
-
+    // need to figure out how to indicate the answer (boolean?)
 const questionOne = {
     question: 'What blah blah blah', // string
     option1: 'answer one', // string
