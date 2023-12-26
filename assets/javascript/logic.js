@@ -27,12 +27,28 @@
 const startButton = document.getElementById('start');
 const startScreen = document.getElementById('start-screen')
 const questionsScreen = document.getElementById('questions')
+const time = document.getElementById('time')
 
-// Make start screen disappear and questions screen appear when 'start quiz' button is pressed
+// Set timer - incomplete
+let secondsLeft = 60;
+function setTime() {
+    const timeInterval = setInterval(function () {
+        secondsLeft--;
+        time.textContent = secondsLeft;
+
+        if (timeLeft === 0) {
+            clearInterval(timeInterval);
+            displayMessage()
+            // need to add code to display end screen
+        }
+}, 1000);
+}
+
+// Make start screen disappear and questions screen appear when 'start quiz' button is pressed. Also starts timer.
 startButton.addEventListener("click", function() {
     startScreen.style.display = "none";
     questionsScreen.style.display = "block";
-    // Need to add code to start timer
+    setTime();
 })
 
 // Render question - and move on to next question object each time the user clicks 'next' or time passes. 
