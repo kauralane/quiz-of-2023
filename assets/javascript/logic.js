@@ -40,16 +40,60 @@ let questionTitle = document.getElementById('question-title')
 let choicesArea = document.getElementById('choices')
 
 questionTitle.textContent = (questions[0].title)
+
 // questions.choices.forEach(function() {
 //     document.choicesArea.createElement('button')
 //     button.textContent = (choices[i])
 // })
 
-// CODE BELOW NOT YET WORKING
-for (let i = 0; i < choices.length; i++) {
-    let button = document.choicesArea.createElement('button');
-    button.textContent = (choices[i]);
-    document.body.appendChild(button);
+// First question
+for (let i = 0; i < 4; i++) {
+    let button = document.createElement('button');
+    button.textContent = questions[0].choices[i];
+    choicesArea.appendChild(button);
 }
 
-// Create 4 buttons using a 'for each' loop. And then set them class attributes etc. 
+questionsScreen.addEventListener('click', function(event) {
+event.preventDefault();
+let answer = event.target;
+choicesArea.display = "none";
+if (answer.textContent === "Spain") {
+questionsScreen.textContent = "Correct!";
+} else {questionsScreen.textContent = "Wrong!"}
+// and remove 5 seconds from timer
+})
+
+
+// Second question
+// for (let i = 0; i < 4; i++) {
+//     let button = document.createElement('button');
+//     button.textContent = questions[1].choices[i];
+//     choicesArea.appendChild(button);
+// }
+
+// // Third Q
+// for (let i = 0; i < 4; i++) {
+//     let button = document.createElement('button');
+//     button.textContent = questions[2].choices[i];
+//     choicesArea.appendChild(button);
+// }
+
+// // Fourth Q
+// for (let i = 0; i < 4; i++) {
+//     let button = document.createElement('button');
+//     button.textContent = questions[3].choices[i];
+//     choicesArea.appendChild(button);
+// }
+
+// // Fifth Q
+// for (let i = 0; i < 4; i++) {
+//     let button = document.createElement('button');
+//     button.textContent = questions[4].choices[i];
+//     choicesArea.appendChild(button);
+// }
+
+// // Function for clicking answer
+// function nextAnswer() {
+    
+// }
+
