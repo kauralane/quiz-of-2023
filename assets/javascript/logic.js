@@ -38,7 +38,7 @@ function setTime() {
 
         if (secondsLeft === 0) {
             clearInterval(timeInterval);
-            displayMessage()
+            // displayMessage()
             // need to add code to display end screen
         }
 }, 1000);
@@ -61,42 +61,49 @@ let choicesArea = document.getElementById('choices')
 // })
 
 // First question - loop to display choices as buttons
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < questions.length -1; i++) {
+    showQuestion();
     questionTitle.textContent = (questions[0].title)
     let button = document.createElement('button');
     button.textContent = questions[0].choices[i];
     choicesArea.appendChild(button);
 }
-    questionsScreen.addEventListener('click', function (event) {
+    choicesArea.addEventListener('click', function (event) {
+        let answer = event.target;
+        if (answer.matches("button") === true) {
         event.preventDefault();
         let answer = event.target;
+        let result = document.createElement('h3');
         if (answer.textContent === "Spain") {
-            let right = document.createElement('h3');
-            right.textContent = "Correct answer!";
-            choicesArea.appendChild(right);
+            result.textContent = "Correct answer!";
+            choicesArea.appendChild(result);
         } else {
-            let wrong = document.createElement('h3');
-            wrong.textContent = "Wrong answer!";
-            choicesArea.appendChild(wrong);
+            result.textContent = "Wrong answer!";
+            choicesArea.appendChild(result);
             secondsLeft -= 5;
         }
-        // Trying to hide the answered question after a short time delay
-        setTimeout(function() {
-        questionTitle.style.display = "none"
-        choicesArea.style.display = "none"
-        }, 1000 ) 
+        // Hide the answered question after a short time delay
+        setTimeout(hideQuestion, 1000) 
+}
+}
+)
 
-        for (let i = 0; i < 4; i++) {
-            questionTitle.textContent = (questions[1].title)
-            button.textContent = questions[1].choices[i];
-}})
+
+function hideQuestion () {
+    questionTitle.style.display = "none"
+    choicesArea.style.display = "none"
+}
+
+function showQuestion () {
+    questionTitle.style.display = "block"
+    choicesArea.style.display = "block"
+}
 
 // Second question
-for (let i = 0; i < 4; i++) {
-    let button = document.createElement('button');
-    button.textContent = questions[1].choices[i];
-    choicesArea.appendChild(button);
-}
+// for (let i = 0; i < 4; i++) {
+//     let button = document.createElement('button');
+//     button.textContent = questions[1].choices[i];
+//     choicesArea.appendChild(button);
 
 // // Third Q
 // for (let i = 0; i < 4; i++) {
