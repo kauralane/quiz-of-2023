@@ -36,7 +36,7 @@ function setTime() {
         secondsLeft--;
         time.textContent = secondsLeft;
 
-        if (timeLeft === 0) {
+        if (secondsLeft === 0) {
             clearInterval(timeInterval);
             displayMessage()
             // need to add code to display end screen
@@ -55,37 +55,48 @@ startButton.addEventListener("click", function() {
 let questionTitle = document.getElementById('question-title')
 let choicesArea = document.getElementById('choices')
 
-questionTitle.textContent = (questions[0].title)
-
 // questions.choices.forEach(function() {
 //     document.choicesArea.createElement('button')
 //     button.textContent = (choices[i])
 // })
 
-// First question
+// First question - loop to display choices as buttons
 for (let i = 0; i < 4; i++) {
+    questionTitle.textContent = (questions[0].title)
     let button = document.createElement('button');
     button.textContent = questions[0].choices[i];
     choicesArea.appendChild(button);
 }
+    questionsScreen.addEventListener('click', function (event) {
+        event.preventDefault();
+        let answer = event.target;
+        if (answer.textContent === "Spain") {
+            let right = document.createElement('h3');
+            right.textContent = "Correct answer!";
+            choicesArea.appendChild(right);
+        } else {
+            let wrong = document.createElement('h3');
+            wrong.textContent = "Wrong answer!";
+            choicesArea.appendChild(wrong);
+            secondsLeft -= 5;
+        }
+        // Trying to hide the answered question after a short time delay
+        setTimeout(function() {
+        questionTitle.style.display = "none"
+        choicesArea.style.display = "none"
+        }, 1000 ) 
 
-questionsScreen.addEventListener('click', function(event) {
-event.preventDefault();
-let answer = event.target;
-choicesArea.display = "none";
-if (answer.textContent === "Spain") {
-questionsScreen.textContent = "Correct!";
-} else {questionsScreen.textContent = "Wrong!"}
-// and remove 5 seconds from timer
-})
-
+        for (let i = 0; i < 4; i++) {
+            questionTitle.textContent = (questions[1].title)
+            button.textContent = questions[1].choices[i];
+}})
 
 // Second question
-// for (let i = 0; i < 4; i++) {
-//     let button = document.createElement('button');
-//     button.textContent = questions[1].choices[i];
-//     choicesArea.appendChild(button);
-// }
+for (let i = 0; i < 4; i++) {
+    let button = document.createElement('button');
+    button.textContent = questions[1].choices[i];
+    choicesArea.appendChild(button);
+}
 
 // // Third Q
 // for (let i = 0; i < 4; i++) {
