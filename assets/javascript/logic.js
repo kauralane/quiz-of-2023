@@ -29,6 +29,10 @@ const startScreen = document.getElementById('start-screen')
 const questionsScreen = document.getElementById('questions')
 const time = document.getElementById('time')
 const endScreen = document.getElementById('end-screen')
+const button1 = document.getElementById('button-1')
+const button2 = document.getElementById('button-2')
+const button3 = document.getElementById('button-3')
+const button4 = document.getElementById('button-4')
 
 // Set timer - incomplete
 let secondsLeft = 60;
@@ -52,102 +56,92 @@ startButton.addEventListener("click", function() {
     setTime();
 })
 
-// Render question - and move on to next question object each time the user clicks 'next' or time passes. 
+
+// Function to render each question and the choices
 let questionTitle = document.getElementById('question-title')
 let choicesArea = document.getElementById('choices')
+let questionIndex = 0;
 
-// questions.choices.forEach(function() {
-//     document.choicesArea.createElement('button')
-//     button.textContent = (choices[i])
+function getQuestion() {
+        let question = questions[questionIndex];
+
+        // questions.forEach(question => {
+        questionTitle.textContent = question.title
+        // })
+
+    question.choices.forEach(choice => {
+    const button = document.createElement("button");
+    button.textContent = choice;
+    choicesArea.appendChild(button);
+    })
+
+    showAnswer();
+    resetQuestion();
+
+    }
+
+// questions.forEach(function(question) {
+//         button.textContent = choices[i];
+//         choicesArea.appendChild(button)
 // })
 
-// First question - loop to display choices as buttons
-function getQuestion() {
-    let currentQuestion = 0;
-    if (currentQuestion < questions.length) {
-        let question = questions[currentQuestion];
+// for (let i = 0; i < 4; i++) {
+//     let buttonOne = document.createElement('button');
+//     buttonOne.textContent = question.choices[0];
+//         let buttonTwo = document.createElement('button');
+//         buttonTwo.textContent = question.choices[1];
+//         let buttonThree = document.createElement('button');
+//         buttonThree.textContent = question.choices[2];
+//         let buttonFour = document.createElement('button');
+//         buttonFour.textContent = question.choices[3];
+//         // let buttons = document.querySelectorAll('button')
+//         choicesArea.appendChild(buttonOne);
+//         choicesArea.appendChild(buttonTwo);
+//         choicesArea.appendChild(buttonThree);
+//         choicesArea.appendChild(buttonFour);
+// }}
+// }
 
-    showQuestion();
-    questionTitle.textContent = (question.title)
 
-for (let i = 0; i < 4; i++) {
-    let button = document.createElement('button');
-    button.textContent = question.choices[i];
-    choicesArea.appendChild(button);
-}}}
-
+// to reset the question area
+function resetQuestion() {
     choicesArea.addEventListener('click', function (event) {
     setTimeout(function () {
+        if (event.target.matches("button") === true){
         const buttons = choicesArea.querySelectorAll('button');
         buttons.forEach(button => {
         choicesArea.removeChild(button)});
         questionTitle.textContent = "";
-    }, 1000)
-})
+    }}, 1000)
+})}
 
-    // choicesArea.addEventListener('click', function (event) {
-    //     let answer = event.target;
-    //     if (answer.matches("button") === true) {
-    //     event.preventDefault();
-    //     let answer = event.target;
-    //     let result = document.createElement('h3');
-    //     if (answer.textContent === "Spain") {
-    //         result.textContent = "Correct answer!";
-    //         choicesArea.appendChild(result);
-    //     } else {
-    //         result.textContent = "Wrong answer!";
-    //         choicesArea.appendChild(result);
-    //         secondsLeft -= 5;
-    //     }
-    //         setTimeout(function () {
-    //             choicesArea.removeChild(result)
-    //         }, 1000)
-    // }})
-// }
 
-questions.forEach(function (question) {
-    getQuestion(question);
-});
-
-// questions.forEach(function (answer) {
-//     getAnswer(answer)
-// })
-
-function showQuestion () {
-    questionTitle.style.display = "block"
-    choicesArea.style.display = "block"
+// To display if the answer is correct or not
+function showAnswer() {
+    choicesArea.addEventListener('click', function (event) {
+        let answer = event.target;
+        if (answer.matches("button") === true){
+        event.preventDefault();
+        let result = document.createElement('h3');
+        if (answer.textContent === "Spain") {
+            result.textContent = "Correct answer!";
+            choicesArea.appendChild(result);
+        } else {
+            result.textContent = "Wrong answer!";
+            choicesArea.appendChild(result);
+            secondsLeft -= 5;
+        }
+            setTimeout(function () {
+                choicesArea.removeChild(result)
+            }, 1000)
+    }})
 }
 
-// Second question
-// for (let i = 0; i < 4; i++) {
-//     let button = document.createElement('button');
-//     button.textContent = questions[1].choices[i];
-//     choicesArea.appendChild(button);
-// }
+getQuestion();
 
-// // Third Q
-// for (let i = 0; i < 4; i++) {
-//     let button = document.createElement('button');
-//     button.textContent = questions[2].choices[i];
-//     choicesArea.appendChild(button);
-// }
 
-// // Fourth Q
-// for (let i = 0; i < 4; i++) {
-//     let button = document.createElement('button');
-//     button.textContent = questions[3].choices[i];
-//     choicesArea.appendChild(button);
-// }
-
-// // Fifth Q
-// for (let i = 0; i < 4; i++) {
-//     let button = document.createElement('button');
-//     button.textContent = questions[4].choices[i];
-//     choicesArea.appendChild(button);
-// }
-
-// // Function for clicking answer
-// function nextAnswer() {
-    
+// function showQuestion () {
+//     questionTitle.style.display = "block"
+//     choicesArea.style.display = "block"
 // }
 
