@@ -60,14 +60,12 @@ startButton.addEventListener("click", function() {
 // Function to render each question and the choices
 let questionTitle = document.getElementById('question-title')
 let choicesArea = document.getElementById('choices')
-let questionIndex = 0;
+let questionIndex = 3;
 
 function getQuestion() {
-        let question = questions[questionIndex];
+    let question = questions[questionIndex];
 
-        // questions.forEach(question => {
-        questionTitle.textContent = question.title
-        // })
+    questionTitle.textContent = question.title
 
     question.choices.forEach(choice => {
     const button = document.createElement("button");
@@ -77,6 +75,7 @@ function getQuestion() {
 
     showAnswer();
     resetQuestion();
+    changeQuestion();
 
     }
 
@@ -120,13 +119,25 @@ function resetQuestion() {
 function showAnswer() {
     choicesArea.addEventListener('click', function (event) {
         let answer = event.target;
-        if (answer.matches("button") === true){
+        if (answer.matches("button") === true) {
         event.preventDefault();
         let result = document.createElement('h3');
-        if (answer.textContent === "Spain") {
+        if (questionIndex === 0 && answer.textContent === "Spain") {
             result.textContent = "Correct answer!";
             choicesArea.appendChild(result);
-        } else {
+} else if (questionIndex === 1 && answer.textContent === 'The Sycamore Gap Tree') {
+            result.textContent = "Correct answer!";
+            choicesArea.appendChild(result);
+} else if (questionIndex === 2 && answer.textContent === 'Titan') {
+            result.textContent = "Correct answer!";
+            choicesArea.appendChild(result);
+} else if (questionIndex === 3 && answer.textContent === 'May') {
+            result.textContent = "Correct answer!";
+            choicesArea.appendChild(result);
+} else if (questionIndex === 4 && answer.textContent === 'Broken glass') {
+            result.textContent = "Correct answer!";
+            choicesArea.appendChild(result);
+} else {
             result.textContent = "Wrong answer!";
             choicesArea.appendChild(result);
             secondsLeft -= 5;
@@ -134,7 +145,22 @@ function showAnswer() {
             setTimeout(function () {
                 choicesArea.removeChild(result)
             }, 1000)
-    }})
+    }})}
+
+function changeQuestion() {
+choicesArea.addEventListener('click', function (event) {
+    if (questionIndex < questions.length) {
+        nextQuestion()
+    }else{
+        questionsScreen.style.display = "none"
+        endScreen.style.display = "block";
+    }
+})
+}
+
+function nextQuestion(){
+    questionIndex++;
+    getQuestion();
 }
 
 getQuestion();
