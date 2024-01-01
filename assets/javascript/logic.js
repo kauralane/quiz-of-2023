@@ -41,8 +41,10 @@ function setTime() {
             clearInterval(timeInterval);
             questionsScreen.style.display = "none"
             endScreen.style.display = "block";
+            let score = document.getElementById('final-score')
+            score.textContent = secondsLeft;
         }
-}, 1000);
+}, 500);
 }
 
 // Make start screen disappear and questions screen appear when 'start quiz' button is pressed. Also starts timer.
@@ -72,7 +74,7 @@ function getQuestion() {
         showAnswer(event.target.textContent);
         setTimeout(function() {
             changeQuestion()
-        }, 1000);
+        }, 500);
     })
     choicesArea.appendChild(button);
     })
