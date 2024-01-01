@@ -24,24 +24,20 @@
 // User has option to take the quiz again
 
 
-const startButton = document.getElementById('start');
+const startButton = document.getElementById('start')
 const startScreen = document.getElementById('start-screen')
 const questionsScreen = document.getElementById('questions')
 const time = document.getElementById('time')
 const endScreen = document.getElementById('end-screen')
-const button1 = document.getElementById('button-1')
-const button2 = document.getElementById('button-2')
-const button3 = document.getElementById('button-3')
-const button4 = document.getElementById('button-4')
 
 // Set timer - incomplete
-let secondsLeft = 60;
+let secondsLeft = 30;
 function setTime() {
     const timeInterval = setInterval(function () {
         secondsLeft--;
         time.textContent = secondsLeft;
 
-        if (secondsLeft === 0) {
+        if (secondsLeft === 0 || endScreen.style.display === "block") {
             clearInterval(timeInterval);
             questionsScreen.style.display = "none"
             endScreen.style.display = "block";
@@ -60,114 +56,79 @@ startButton.addEventListener("click", function() {
 // Function to render each question and the choices
 let questionTitle = document.getElementById('question-title')
 let choicesArea = document.getElementById('choices')
-let questionIndex = 3;
+let questionIndex = 0;
 
 function getQuestion() {
+    resetQuestion();
     let question = questions[questionIndex];
 
-    questionTitle.textContent = question.title
+// this is skipping questions 3 and 5 for an unknown reason
+    questionTitle.textContent = question.title;
 
     question.choices.forEach(choice => {
     const button = document.createElement("button");
     button.textContent = choice;
+    button.addEventListener('click', function (event) {
+        showAnswer(event.target.textContent);
+        changeQuestion();
+    })
     choicesArea.appendChild(button);
     })
-
-    showAnswer();
-    resetQuestion();
-    changeQuestion();
-
     }
-
-// questions.forEach(function(question) {
-//         button.textContent = choices[i];
-//         choicesArea.appendChild(button)
-// })
-
-// for (let i = 0; i < 4; i++) {
-//     let buttonOne = document.createElement('button');
-//     buttonOne.textContent = question.choices[0];
-//         let buttonTwo = document.createElement('button');
-//         buttonTwo.textContent = question.choices[1];
-//         let buttonThree = document.createElement('button');
-//         buttonThree.textContent = question.choices[2];
-//         let buttonFour = document.createElement('button');
-//         buttonFour.textContent = question.choices[3];
-//         // let buttons = document.querySelectorAll('button')
-//         choicesArea.appendChild(buttonOne);
-//         choicesArea.appendChild(buttonTwo);
-//         choicesArea.appendChild(buttonThree);
-//         choicesArea.appendChild(buttonFour);
-// }}
-// }
-
 
 // to reset the question area
 function resetQuestion() {
-    choicesArea.addEventListener('click', function (event) {
-    setTimeout(function () {
-        if (event.target.matches("button") === true){
-        const buttons = choicesArea.querySelectorAll('button');
-        buttons.forEach(button => {
-        choicesArea.removeChild(button)});
-        questionTitle.textContent = "";
-    }}, 1000)
-})}
-
-
-// To display if the answer is correct or not
-function showAnswer() {
-    choicesArea.addEventListener('click', function (event) {
-        let answer = event.target;
-        if (answer.matches("button") === true) {
-        event.preventDefault();
-        let result = document.createElement('h3');
-        if (questionIndex === 0 && answer.textContent === "Spain") {
-            result.textContent = "Correct answer!";
-            choicesArea.appendChild(result);
-} else if (questionIndex === 1 && answer.textContent === 'The Sycamore Gap Tree') {
-            result.textContent = "Correct answer!";
-            choicesArea.appendChild(result);
-} else if (questionIndex === 2 && answer.textContent === 'Titan') {
-            result.textContent = "Correct answer!";
-            choicesArea.appendChild(result);
-} else if (questionIndex === 3 && answer.textContent === 'May') {
-            result.textContent = "Correct answer!";
-            choicesArea.appendChild(result);
-} else if (questionIndex === 4 && answer.textContent === 'Broken glass') {
-            result.textContent = "Correct answer!";
-            choicesArea.appendChild(result);
-} else {
-            result.textContent = "Wrong answer!";
-            choicesArea.appendChild(result);
-            secondsLeft -= 5;
-        }
-            setTimeout(function () {
-                choicesArea.removeChild(result)
-            }, 1000)
-    }})}
-
-function changeQuestion() {
-choicesArea.addEventListener('click', function (event) {
-    if (questionIndex < questions.length) {
-        nextQuestion()
-    }else{
-        questionsScreen.style.display = "none"
-        endScreen.style.display = "block";
+    while(choicesArea.firstChild){
+        choicesArea.removeChild(choicesArea.firstChild);
     }
-})
 }
 
-function nextQuestion(){
-    questionIndex++;
-    getQuestion();
+// To display if the answer is correct or not, using conditionals to match the question index and the relevant answer
+function showAnswer(clickedButton) {
+
+        let result = document.createElement('h3');
+        choicesArea.appendChild(result);
+
+        if (questionIndex === 0 && clickedButton === 'Spain') {
+            result.textContent = "Correct answer!";
+        } else if (questionIndex === 1 && clickedButton === 'The Sycamore Gap Tree') {
+            result.textContent = "Correct answer!";
+        } else if (questionIndex === 2 && clickedButton === 'Titan') {
+            result.textContent = "Correct answer!";
+        } else if (questionIndex === 3 && clickedButton === 'May') {
+            result.textContent = "Correct answer!";
+        } else if (questionIndex === 4 && clickedButton === 'Broken glass') {
+            result.textContent = "Correct answer!";
+} else {
+            result.textContent = "Wrong answer!";
+            secondsLeft -= 5;
+        }
+
+        // choicesArea.appendChild(result);
+
+            setTimeout(function () {
+                let h3 = choicesArea.querySelector('h3')
+                if (h3) {
+                    choicesArea.removeChild(h3);
+                }
+            }, 1000)
+    }
+
+
+function changeQuestion() {
+    // choicesArea.addEventListener('click', function (event) {
+    //     let answer = event.target;
+    //     if (answer.matches("button") === true) {
+            questionIndex++;
+            if (questionIndex < questions.length - 1) { 
+            getQuestion();
+            } else {
+                questionsScreen.style.display = "none";
+                endScreen.style.display = "block";
+            }
+    //     }
+    // }
+    // );
 }
 
 getQuestion();
-
-
-// function showQuestion () {
-//     questionTitle.style.display = "block"
-//     choicesArea.style.display = "block"
-// }
-
