@@ -62,7 +62,7 @@ function getQuestion() {
     resetQuestion();
     let question = questions[questionIndex];
 
-// this is skipping questions 3 and 5 for an unknown reason
+// this is skipping questions for an unknown reason
     questionTitle.textContent = question.title;
 
     question.choices.forEach(choice => {
@@ -70,7 +70,9 @@ function getQuestion() {
     button.textContent = choice;
     button.addEventListener('click', function (event) {
         showAnswer(event.target.textContent);
-        changeQuestion();
+        setTimeout(function() {
+            changeQuestion()
+        }, 1000);
     })
     choicesArea.appendChild(button);
     })
@@ -87,7 +89,6 @@ function resetQuestion() {
 function showAnswer(clickedButton) {
 
         let result = document.createElement('h3');
-        choicesArea.appendChild(result);
 
         if (questionIndex === 0 && clickedButton === 'Spain') {
             result.textContent = "Correct answer!";
@@ -104,7 +105,7 @@ function showAnswer(clickedButton) {
             secondsLeft -= 5;
         }
 
-        // choicesArea.appendChild(result);
+        choicesArea.appendChild(result);
 
             setTimeout(function () {
                 let h3 = choicesArea.querySelector('h3')
@@ -116,9 +117,6 @@ function showAnswer(clickedButton) {
 
 
 function changeQuestion() {
-    // choicesArea.addEventListener('click', function (event) {
-    //     let answer = event.target;
-    //     if (answer.matches("button") === true) {
             questionIndex++;
             if (questionIndex < questions.length - 1) { 
             getQuestion();
@@ -126,9 +124,6 @@ function changeQuestion() {
                 questionsScreen.style.display = "none";
                 endScreen.style.display = "block";
             }
-    //     }
-    // }
-    // );
 }
 
 getQuestion();
