@@ -115,10 +115,9 @@ function showAnswer(clickedButton) {
             }, 1000)
     }
 
-
 function changeQuestion() {
             questionIndex++;
-            if (questionIndex < questions.length - 1) { 
+            if (questionIndex < questions.length) { 
             getQuestion();
             } else {
                 questionsScreen.style.display = "none";
