@@ -30,7 +30,7 @@ const questionsScreen = document.getElementById('questions')
 const time = document.getElementById('time')
 const endScreen = document.getElementById('end-screen')
 
-// Set timer - incomplete
+// Set timer - incomplete - sometimes going past 0 and giving final score as minus number
 let secondsLeft = 30;
 function setTime() {
     const timeInterval = setInterval(function () {
@@ -128,36 +128,73 @@ function changeQuestion() {
 
 getQuestion();
 
+// function getScore() {
+// let submitButton = document.getElementById('submit')
+// let score = document.getElementById('final-score')
+// score.textContent = secondsLeft;
+// initials.style.backgroundColor = 'white';
+
+// submitButton.addEventListener('click', function(event) {
+//     event.preventDefault();
+//         let initials = document.getElementById('initials').value.trim();
+
+//         localStorage.setItem(initials, JSON.stringify(secondsLeft));
+
+//         document.getElementById('initials').style.backgroundColor = 'lightGreen';
+
+//     setTimeout( function() {
+//         newPage()
+//     }, 500)
+// })
+// }
+
+// function newPage() {
+//     window.location = ("highscores.html");
+// }
+
+// renderScores()
+
+// function renderScores() {
+//     (JSON.parse(localStorage.getItem(initials, secondsLeft)));
+//     let scores = {
+//         user: initials,
+//         score: secondsLeft
+//     }
+
+//     let scoreArray = [];
+//     scoreArray.push(scores)
+
+//     const scoreList = document.getElementById('highscores')
+    
+//     scoreArray.forEach(score => {
+//     const liScore = document.scoreList.createElement('li')
+//     liScore.textContent = (score)
+// })
+// }
+
 function getScore() {
-let submitButton = document.getElementById('submit')
-let score = document.getElementById('final-score')
-score.textContent = secondsLeft;
-initials.style.backgroundColor = 'white';
+    let submitButton = document.getElementById('submit');
+    let score = document.getElementById('final-score');
+    score.textContent = secondsLeft;
+    initials.style.backgroundColor = 'white';
 
-submitButton.addEventListener('click', function(event) {
-    event.preventDefault;
+    submitButton.addEventListener('click', function (event) {
+        event.preventDefault();
+
         let initials = document.getElementById('initials').value.trim();
+        let scores = JSON.parse(localStorage.getItem('scores')) || [];
 
-        let userScore = {
-            user : initials,
-            score : secondsLeft
-        }
+        scores.push({ user: initials, score: secondsLeft });
+        localStorage.setItem('scores', JSON.stringify(scores));
 
-        localStorage.setItem("userScore", JSON.stringify(userScore));
         document.getElementById('initials').style.backgroundColor = 'lightGreen';
 
-    setTimeout( function() {
-        newPage()
-    }, 500)
-})
+        setTimeout(function () {
+            newPage();
+        }, 500);
+    });
 }
 
 function newPage() {
-    window.location = ("highscores.html")
+    window.location = "highscores.html";
 }
-
-
-// does this need to be an object instead? 
-// EG: score: [LK, 14]
-// needs to order the scores from highest - lowest
-// On hitting submit, need to go to the highscores page
