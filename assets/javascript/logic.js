@@ -109,7 +109,6 @@ function getScore() {
     let submitButton = document.getElementById('submit');
     let score = document.getElementById('final-score');
     score.textContent = secondsLeft;
-    initials.style.backgroundColor = 'white';
 
     submitButton.addEventListener('click', function (event) {
         event.preventDefault();
