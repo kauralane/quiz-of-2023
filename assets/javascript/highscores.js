@@ -1,7 +1,7 @@
+// Retrieve scores array from local storage
+   let scores = JSON.parse(localStorage.getItem('scores')) || [];
 
-    let scores = JSON.parse(localStorage.getItem('scores')) || [];
-
-// sort the scores numerically in descending order
+// Sort the scores numerically in descending order and append them as list items to teh page
     scores.sort(function(a, b){return b.score - a.score});
 
     scores.forEach(score => {
@@ -11,7 +11,7 @@
         scoreList.appendChild(liScore);
     });
 
-
+// Allow user to clear scores from local storage and from page upon button click
 let clearButton = document.getElementById('clear')
 clearButton.addEventListener('click', function() {
     const scoreList = document.getElementById('highscores');

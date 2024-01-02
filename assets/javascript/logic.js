@@ -1,37 +1,12 @@
-// Click the start button:
-// Landing page goes away
-// Timer starts
-// The first question appears (with its answers)
-
-// For each question:
-// User clicks an answer
-// Their choice is compared to the correct answer as stored in the question's object
-// If correct, tell them
-// If incorrect, tell them AND subtract time from the timer
-// Optional: play a sound for correct or incorrect
-// Either way, the question disappears after a few seconds and the next question appears
-
-// After the last question:
-// Timer stops
-// Question disappears
-// Form appears for user to enter their initials
-// Display their score
-
-// User submits form
-// Initials and score get stored in local storage
-// User is taken to the high scores page
-// High scores are listed, sorted highest to lowest
-// User has option to take the quiz again
-
-
 const startButton = document.getElementById('start')
 const startScreen = document.getElementById('start-screen')
 const questionsScreen = document.getElementById('questions')
 const time = document.getElementById('time')
 const endScreen = document.getElementById('end-screen')
 
-// Set timer - incomplete - sometimes going past 0 and giving final score as minus number
-let secondsLeft = 30;
+// Function to set timer to count down from 60 seconds. Once timer reaches 0 or the questions have all been answered, timer stops
+
+let secondsLeft = 60;
 function setTime() {
     const timeInterval = setInterval(function () {
         secondsLeft--;
@@ -43,7 +18,7 @@ function setTime() {
             endScreen.style.display = "block";
             getScore();
         }
-}, 500);
+}, 1000);
 }
 
 // Make start screen disappear and questions screen appear when 'start quiz' button is pressed. Also starts timer.
@@ -54,7 +29,7 @@ startButton.addEventListener("click", function() {
 })
 
 
-// Function to render each question and the choices
+// Function to render each question and it's choices, then reset the area to move on to the next question
 let questionTitle = document.getElementById('question-title')
 let choicesArea = document.getElementById('choices')
 let questionIndex = 0;
@@ -62,8 +37,6 @@ let questionIndex = 0;
 function getQuestion() {
     resetQuestion();
     let question = questions[questionIndex];
-
-// this is skipping questions for an unknown reason
     questionTitle.textContent = question.title;
 
     question.choices.forEach(choice => {
@@ -86,7 +59,8 @@ function resetQuestion() {
     }
 }
 
-// To display if the answer is correct or not, using conditionals to match the question index and the relevant answer
+// To temporarily display if the answer is correct or not, using conditionals to match the question index and the relevant answer. 
+
 function showAnswer(clickedButton) {
 
         let result = document.createElement('h3');
@@ -101,7 +75,7 @@ function showAnswer(clickedButton) {
             result.textContent = "Correct answer!";
         } else if (questionIndex === 4 && clickedButton === 'Broken glass') {
             result.textContent = "Correct answer!";
-} else {
+        } else {
             result.textContent = "Wrong answer!";
             secondsLeft -= 5;
         }
@@ -116,6 +90,7 @@ function showAnswer(clickedButton) {
             }, 1000)
     }
 
+    // Incrementing question index to move onto next one until the end of the questions array is reached
 function changeQuestion() {
             questionIndex++;
             if (questionIndex < questions.length) { 
@@ -128,49 +103,7 @@ function changeQuestion() {
 
 getQuestion();
 
-// function getScore() {
-// let submitButton = document.getElementById('submit')
-// let score = document.getElementById('final-score')
-// score.textContent = secondsLeft;
-// initials.style.backgroundColor = 'white';
-
-// submitButton.addEventListener('click', function(event) {
-//     event.preventDefault();
-//         let initials = document.getElementById('initials').value.trim();
-
-//         localStorage.setItem(initials, JSON.stringify(secondsLeft));
-
-//         document.getElementById('initials').style.backgroundColor = 'lightGreen';
-
-//     setTimeout( function() {
-//         newPage()
-//     }, 500)
-// })
-// }
-
-// function newPage() {
-//     window.location = ("highscores.html");
-// }
-
-// renderScores()
-
-// function renderScores() {
-//     (JSON.parse(localStorage.getItem(initials, secondsLeft)));
-//     let scores = {
-//         user: initials,
-//         score: secondsLeft
-//     }
-
-//     let scoreArray = [];
-//     scoreArray.push(scores)
-
-//     const scoreList = document.getElementById('highscores')
-    
-//     scoreArray.forEach(score => {
-//     const liScore = document.scoreList.createElement('li')
-//     liScore.textContent = (score)
-// })
-// }
+// Function to add user's score (the time) and initials to local storage when submit button is pressed, without overwriting previous submissions
 
 function getScore() {
     let submitButton = document.getElementById('submit');
@@ -195,6 +128,7 @@ function getScore() {
     });
 }
 
+// Function to move to highscores page
 function newPage() {
     window.location = "highscores.html";
 }
