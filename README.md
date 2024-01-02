@@ -9,8 +9,8 @@ The user's score is determined based on how much time they have left upon answer
 
 The user can input their initials and save their highscore. They can then view the highscores page, which displays all high scores in descending order. The user can clear highscores from local storage and the page if they wish.
 
-[Deployed Application]()
-[Screenshot]
+[Deployed Application](https://kauralane.github.io/quiz-of-2023/)
+![](./assets/screenshot/deployed-application.gif)
 
 ## Installation
 None.
