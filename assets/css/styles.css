@@ -87,6 +87,6 @@ li:nth-child(odd) {
   right: 10px;
 }
 
-h3 {
-  color: black;
+#initials {
+  background-color: green;
 }

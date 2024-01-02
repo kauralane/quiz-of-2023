@@ -41,8 +41,7 @@ function setTime() {
             clearInterval(timeInterval);
             questionsScreen.style.display = "none"
             endScreen.style.display = "block";
-            let score = document.getElementById('final-score')
-            score.textContent = secondsLeft;
+            getScore();
         }
 }, 500);
 }
@@ -128,3 +127,37 @@ function changeQuestion() {
 }
 
 getQuestion();
+
+function getScore() {
+let submitButton = document.getElementById('submit')
+let score = document.getElementById('final-score')
+score.textContent = secondsLeft;
+initials.style.backgroundColor = 'white';
+
+submitButton.addEventListener('click', function(event) {
+    event.preventDefault;
+        let initials = document.getElementById('initials').value.trim();
+
+        let userScore = {
+            user : initials,
+            score : secondsLeft
+        }
+
+        localStorage.setItem("userScore", JSON.stringify(userScore));
+        document.getElementById('initials').style.backgroundColor = 'lightGreen';
+
+    setTimeout( function() {
+        newPage()
+    }, 500)
+})
+}
+
+function newPage() {
+    window.location = ("highscores.html")
+}
+
+
+// does this need to be an object instead? 
+// EG: score: [LK, 14]
+// needs to order the scores from highest - lowest
+// On hitting submit, need to go to the highscores page
